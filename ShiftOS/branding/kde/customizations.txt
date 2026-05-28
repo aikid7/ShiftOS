@@ -1,0 +1,6 @@
+ShiftOS KDE Customizations
+
+- Custom ShiftOS wallpaper
+- ShiftOS user profile icon
+- Modified KDE panel layout
+- Custom Plasma appearance

@@ -1,0 +1,20 @@
+desktop-image: "grub-background.png"
+
+title-text: "ShiftOS"
+title-color: "#ffffff"
+title-font: "Sans Regular 24"
+
+message-color: "#ffffff"
+message-font: "Sans Regular 16"
+
+terminal-font: "Sans Regular 16"
++ boot_menu {
+  left = 15%
+  top = 20%
+  width = 70%
+  height = 60%
+  item_color = "#cccccc"
+  selected_item_color = "#ffffff"
+  item_font = "Sans Regular 16"
+  selected_item_font = "Sans Regular 16"
+}
