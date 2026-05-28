@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>ShiftOS | Lightweight Custom Linux Distribution by aikid7</title>
+  <meta name="description" content="ShiftOS is a lightweight Linux distribution by aikid7. Choose from ShiftOS Home, Black Shift, or Tiny Shift — built for daily use, security, or minimal setups." />
+  <meta name="keywords" content="ShiftOS, ShiftOS Linux, aikid7, Black Shift, Tiny Shift, download Linux ISO, lightweight Linux distro, cybersecurity distro" />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="aikid7" />
+  
+  <meta property="og:title" content="ShiftOS | Linux Distribution by aikid7" />
+  <meta property="og:description" content="A lightweight Linux distro in three editions: Home, Black Shift, and Tiny Shift." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://shiftos.netlify.app" />
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  
+    :root {
+      --bg: #0f0f0f;
+      --surface: #161616;
+      --border: #2a2a2a;
+      --text: #e8e8e8;
+      --muted: #777;
+      --accent: #3b82f6;
+      --red: #ef4444;
+      --green: #22c55e;
+      --yellow: #eab308;
+    }
+  
+    html { scroll-behavior: smooth; }
+  
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+  
+    a { color: inherit; text-decoration: none; }
+  
+    /* SYSTEM UPDATE BANNER */
+    .system-banner {
+      background: rgba(234, 179, 8, 0.08);
+      border-bottom: 1px solid rgba(234, 179, 8, 0.3);
+      padding: 0.75rem 2rem;
+      text-align: center;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--yellow);
+    }
+
+    .system-banner code {
+      background: rgba(234, 179, 8, 0.15);
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      font-weight: 600;
+      color: #ffd644;
+    }
+
+    /* NAV BAR */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 2rem;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: var(--bg);
+      z-index: 100;
+    }
+  
+    .nav-logo {
+      font-family: 'IBM Plex Mono', monospace;
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--text);
+    }
+  
+    .nav-links {
+      display: flex;
+      gap: 1.75rem;
+      list-style: none;
+    }
+  
+    .nav-links a {
+      font-size: 0.875rem;
+      color: var(--muted);
+      transition: color 0.15s;
+    }
+  
+    .nav-links a:hover { color: var(--text); }
+  
+    /* HERO ZONE */
+    .hero {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 5rem 2rem 4rem;
+    }
+  
+    .hero-badges {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+    }
+  
+    .badge {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.7rem;
+      padding: 0.2rem 0.55rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--muted);
+    }
+  
+    h1 {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: clamp(2.5rem, 8vw, 4rem);
+      font-weight: 600;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 1rem;
+    }
+  
+    .hero-desc {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 480px;
+      margin-bottom: 2rem;
+      line-height: 1.7;
+    }
+  
+    .hero-by {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.8rem;
+      color: #444;
+      margin-bottom: 2.5rem;
+    }
+  
+    .hero-by a { color: var(--accent); }
+    .hero-by a:hover { text-decoration: underline; }
+  
+    .hero-actions {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+  
+    .btn {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.6rem 1.25rem;
+      border-radius: 6px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: opacity 0.15s, transform 0.1s;
+      display: inline-block;
+    }
+  
+    .btn:hover { opacity: 0.85; transform: translateY(-1px); }
+    .btn:active { transform: translateY(0); }
+  
+    .btn-primary {
+      background: var(--text);
+      color: var(--bg);
+    }
+  
+    .btn-ghost {
+      background: transparent;
+      border-color: var(--border);
+      color: var(--muted);
+    }
+  
+    .btn-ghost:hover { color: var(--text); border-color: #555; opacity: 1; }
+  
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 0;
+    }
+  
+    /* EDITIONS SECTION */
+    .editions, .tracker-section {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+    }
+  
+    .section-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.7rem;
+      color: #444;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 2.5rem;
+    }
+  
+    .edition {
+      padding: 2rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+  
+    .edition:last-child { border-bottom: none; }
+  
+    .edition-header {
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+      margin-bottom: 0.5rem;
+    }
+  
+    h2 {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+  
+    .edition-tag {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.65rem;
+      padding: 0.15rem 0.45rem;
+      border-radius: 3px;
+    }
+  
+    .tag-blue  { background: rgba(59,130,246,0.12); color: #60a5fa; }
+    .tag-red   { background: rgba(239,68,68,0.12);  color: #f87171; }
+    .tag-green { background: rgba(34,197,94,0.12);  color: #4ade80; }
+  
+    .edition-desc {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 1.25rem;
+      max-width: 500px;
+    }
+  
+    .edition-flavors {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+  
+    .flavor {
+      display: flex;
+      align-items: baseline;
+      gap: 0.6rem;
+    }
+  
+    .flavor-name {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--text);
+      min-width: 160px;
+    }
+  
+    .flavor-desc {
+      font-size: 0.8rem;
+      color: #555;
+    }
+  
+    .edition-link {
+      display: inline-block;
+      margin-top: 1.25rem;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--accent);
+      border-bottom: 1px solid transparent;
+      padding-bottom: 1px;
+      transition: color 0.15s, border-color 0.15s;
+    }
+  
+    .edition-link:hover { color: var(--text); border-color: var(--accent); }
+  
+    /* REAL PROJECT ROADMAP BOX */
+    .tracker-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+    }
+
+    .tracker-box h3 {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .tracker-box h3 a {
+      font-size: 0.75rem;
+      color: var(--accent);
+    }
+    .tracker-box h3 a:hover { text-decoration: underline; }
+
+    .issue-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .issue-item {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      border-bottom: 1px dashed #222;
+      padding-bottom: 0.6rem;
+    }
+
+    .issue-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .issue-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .issue-title {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .issue-meta {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-top: 0.15rem;
+    }
+
+    .status-badge {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.65rem;
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    .status-fixed { background: rgba(34, 197, 94, 0.15); color: var(--green); }
+    .status-open  { background: rgba(234, 179, 8, 0.15); color: var(--yellow); }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+      max-width: 680px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+  
+    .footer-copy {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.75rem;
+      color: #444;
+    }
+  
+    .footer-copy a { color: #555; }
+    .footer-copy a:hover { color: var(--muted); }
+  
+    .footer-links {
+      display: flex;
+      gap: 1.25rem;
+    }
+  
+    .footer-links a {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.75rem;
+      color: #444;
+      transition: color 0.15s;
+    }
+  
+    .footer-links a:hover { color: var(--muted); }
+  
+    @media (max-width: 520px) {
+      nav { padding: 1rem 1.25rem; }
+      .hero, .editions, .tracker-section { padding-left: 1.25rem; padding-right: 1.25rem; }
+      footer { padding: 1.5rem 1.25rem; flex-direction: column; align-items: flex-start; }
+      .nav-links { gap: 1rem; }
+    }
+  </style>
+</head>
+  
+<body>
+
+  <div class="system-banner">
+    ⚙️ First time installing ShiftOS? Please remember to run <code>sudo shift update</code> to synchronize core packages.
+  </div>
+  
+  <nav>
+    <span class="nav-logo">ShiftOS</span>
+    <ul class="nav-links">
+      <li><a href="#editions">Editions</a></li>
+      <li><a href="#roadmap">Project Status</a></li>
+      <li><a href="#editions">Download</a></li>
+      <li><a href="https://github.com/aikid7/ShiftOS" target="_blank" rel="noopener">GitHub</a></li>
+    </ul>
+  </nav>
+  
+  <header class="hero">
+    <div class="hero-badges">
+      <span class="badge">GPL-3.0</span>
+      <span class="badge">v1.0-Beta</span>
+    </div>
+  
+    <h1>ShiftOS</h1>
+  
+    <p class="hero-desc">
+      A lightweight Linux distribution built for real use —
+      whether you're a daily user, a security researcher, or
+      running an old machine.
+    </p>
+  
+    <p class="hero-by">by <a href="https://github.com/aikid7" target="_blank" rel="noopener">aikid7</a></p>
+  
+    <div class="hero-actions">
+      <a href="#editions" class="btn btn-primary">Download ISO</a>
+      <a href="https://github.com/aikid7/ShiftOS" target="_blank" rel="noopener" class="btn btn-ghost">View Repository</a>
+    </div>
+  </header>
+  
+  <hr class="divider" />
+  
+  <main>
+    <section id="editions" class="editions">
+      <p class="section-label">Choose Your Edition</p>
+  
+      <article class="edition">
+        <div class="edition-header">
+          <h2>ShiftOS Home</h2>
+          <span class="edition-tag tag-blue">Daily Driver</span>
+        </div>
+        <p class="edition-desc">
+          Built for beginners, gamers, developers, and everyday users.
+          Pick the desktop that fits how you work.
+        </p>
+        <div class="edition-flavors">
+          <div class="flavor">
+            <span class="flavor-name">KDE Plasma</span>
+            <span class="flavor-desc">Endless customization and sleek visuals.</span>
+          </div>
+          <div class="flavor">
+            <span class="flavor-name">Cinnamon</span>
+            <span class="flavor-desc">Familiar layout, great for Windows converts.</span>
+          </div>
+          <div class="flavor">
+            <span class="flavor-name">XFCE</span>
+            <span class="flavor-desc">Pure speed — ideal for low-end hardware.</span>
+          </div>
+        </div>
+        <a href="https://github.com/aikid7/ShiftOS/releases" target="_blank" rel="noopener" class="edition-link">Get ShiftOS Home ISO →</a>
+      </article>
+  
+      <article class="edition">
+        <div class="edition-header">
+          <h2>Black Shift</h2>
+          <span class="edition-tag tag-red">Security</span>
+        </div>
+        <p class="edition-desc">
+          A balanced cybersecurity OS. No background bloat, no performance bottlenecks.
+          Dual-optimized for security auditing and high-FPS gaming — without the overhead
+          of distros like Kali.
+        </p>
+        <a href="https://github.com/aikid7/ShiftOS/releases" target="_blank" rel="noopener" class="edition-link">Get Black Shift ISO →</a>
+      </article>
+  
+      <article class="edition">
+        <div class="edition-header">
+          <h2>Tiny Shift</h2>
+          <span class="edition-tag tag-green">Ultra-Lite</span>
+        </div>
+        <p class="edition-desc">
+          Powered by the Openbox window manager. Engineered to run on ancient hardware
+          or minimalist setups where every megabyte of RAM counts.
+        </p>
+        <a href="https://github.com/aikid7/ShiftOS/releases" target="_blank" rel="noopener" class="edition-link">Get Tiny Shift ISO →</a>
+      </article>
+    </section>
+
+    <hr class="divider" />
+
+    <section id="roadmap" class="tracker-section">
+      <p class="section-label">Development Roadmap</p>
+      
+      <div class="tracker-box">
+        <h3>
+          <span>Project Status Dashboard</span>
+          <a href="https://github.com/aikid7/ShiftOS/issues" target="_blank" rel="noopener">Open Official Support Ticket →</a>
+        </h3>
+        
+        <ul class="issue-list">
+          <li class="issue-item">
+            <div class="issue-info">
+              <span class="issue-title">Base system folder structures and branding graphics</span>
+              <span class="issue-meta">Local repository structure synced directly to GitHub</span>
+            </div>
+            <span class="status-badge status-fixed">Uploaded</span>
+          </li>
+          <li class="issue-item">
+            <div class="issue-info">
+              <span class="issue-title">GPL-3.0 open source license implementation</span>
+              <span class="issue-meta">Legal guidelines and permissions verified</span>
+            </div>
+            <span class="status-badge status-fixed">Active</span>
+          </li>
+          <li class="issue-item">
+            <div class="issue-info">
+              <span class="issue-title">Live OS ISO building and distribution compilation phase</span>
+              <span class="issue-meta">Currently running compiler tests for Home, Black, and Tiny layers</span>
+            </div>
+            <span class="status-badge status-open">Compiling...</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+  </main>
+  
+  <footer>
+    <p class="footer-copy">
+      © 2026 <a href="https://github.com/aikid7" target="_blank" rel="noopener">aikid7</a>. Licensed under GPL-3.0.
+    </p>
+    <div class="footer-links">
+      <a href="https://github.com/aikid7/ShiftOS/blob/main/LICENSE" target="_blank" rel="noopener">GPL-3.0 License</a>
+      <a href="https://github.com/aikid7/ShiftOS/issues" target="_blank" rel="noopener">Bug Tracker & Support</a>
+    </div>
+  </footer>
+  
+</body>
+</html>
